@@ -1,504 +1,502 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Uso de la cuchara para comer</title>
+<html lang="es"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Uso de la cuchara para comer</title> 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+     * { 
+        margin: 0; 
+        padding: 0; 
+        box-sizing: border-box; 
+    }
 
-        body {
-            font-family: 'Georgia', serif;
-            line-height: 1.8;
-            color: #2c3e50;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
+    body {
+        font-family: 'Georgia', serif;
+        line-height: 1.8;
+        color: #2c3e50;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: 100vh;
+        padding: 20px;
+    }
 
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        background: white;
+        padding: 50px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        border-radius: 10px;
+    }
+
+    h1 {
+        color: #34495e;
+        font-size: 2.5em;
+        margin-bottom: 40px;
+        text-align: center;
+        border-bottom: 3px solid #3498db;
+        padding-bottom: 20px;
+    }
+
+    h2 {
+        color: #2980b9;
+        font-size: 1.8em;
+        margin-top: 40px;
+        margin-bottom: 20px;
+        cursor: pointer;
+        transition: color 0.3s;
+        position: relative;
+        padding-left: 30px;
+    }
+
+    h2:hover {
+        color: #3498db;
+    }
+
+    h2::before {
+        content: '▶';
+        position: absolute;
+        left: 0;
+        transition: transform 0.3s;
+    }
+
+    h2.active::before {
+        transform: rotate(90deg);
+    }
+
+    h3 {
+        color: #16a085;
+        font-size: 1.3em;
+        margin-top: 25px;
+        margin-bottom: 15px;
+        font-style: italic;
+    }
+
+    p {
+        margin-bottom: 20px;
+        text-align: justify;
+    }
+
+    .section-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease-out;
+    }
+
+    .section-content.active {
+        max-height: 4000px;
+        transition: max-height 0.8s ease-in;
+    }
+
+    .image-gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin: 30px 0;
+    }
+
+    .image-card {
+        background: #f8f9fa;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        transition: transform 0.3s;
+    }
+
+    .image-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+    }
+
+    div.image-placeholder {
+        width: 100%;
+        height: 200px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2em;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .image-caption {
+        padding: 15px;
+        font-size: 0.9em;
+        color: #555;
+    }
+
+    /* Image mock styles */
+    .hero-image {
+        display: block;
+        margin: 20px auto 30px;
+        width: 100%;
+        max-width: 900px;
+        border-radius: 10px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        object-fit: cover;
+    }
+
+    .card-image {
+        width: 100%;
+        height: 180px;
+        border-radius: 8px;
+        object-fit: cover;
+        margin-bottom: 12px;
+    }
+
+    .myth-image, .analysis-image {
+        width: 100%;
+        height: 220px;
+        border-radius: 8px;
+        object-fit: cover;
+        margin-bottom: 12px;
+    }
+
+    .author-avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 10px;
+        vertical-align: middle;
+    }
+
+    .interactive-comparison {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin: 30px 0;
+    }
+
+    .comparison-card {
+        background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        padding: 25px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .comparison-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+
+    .comparison-title {
+        font-weight: bold;
+        font-size: 1.2em;
+        margin-bottom: 10px;
+        color: #2c3e50;
+    }
+
+    .myth-box {
+        background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        padding: 30px;
+        border-radius: 10px;
+        margin: 30px 0;
+        border-left: 5px solid #e74c3c;
+    }
+
+    .quote-box {
+        background: #f8f9fa;
+        border-left: 4px solid #3498db;
+        padding: 20px;
+        margin: 20px 0;
+        font-style: italic;
+    }
+
+    .power-analysis {
+        background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        padding: 25px;
+        border-radius: 10px;
+        margin: 30px 0;
+    }
+
+    .observation-box {
+        background: #e8f5e9;
+        padding: 25px;
+        border-radius: 10px;
+        margin: 30px 0;
+        border-left: 5px solid #4caf50;
+    }
+
+    .references {
+        background: #ecf0f1;
+        padding: 25px;
+        border-radius: 8px;
+        margin-top: 40px;
+        border-left: 4px solid #3498db;
+    }
+
+    .references h2 {
+        margin-top: 0;
+        cursor: default;
+        padding-left: 0;
+    }
+
+    .references h2::before {
+        content: '';
+    }
+
+    .references p {
+        font-size: 0.95em;
+        margin-bottom: 10px;
+    }
+
+    .highlight {
+        background: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+        padding: 2px 6px;
+        border-radius: 3px;
+        transition: all 0.3s;
+    }
+
+    .highlight:hover {
+        background: linear-gradient(120deg, #8fd3f4 0%, #84fab0 100%);
+    }
+
+    @media (max-width: 768px) {
         .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: white;
-            padding: 50px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-            border-radius: 10px;
+            padding: 30px 20px;
         }
 
         h1 {
-            color: #34495e;
-            font-size: 2.5em;
-            margin-bottom: 40px;
-            text-align: center;
-            border-bottom: 3px solid #3498db;
-            padding-bottom: 20px;
+            font-size: 2em;
         }
 
         h2 {
-            color: #2980b9;
-            font-size: 1.8em;
-            margin-top: 40px;
-            margin-bottom: 20px;
-            cursor: pointer;
-            transition: color 0.3s;
-            position: relative;
-            padding-left: 30px;
-        }
-
-        h2:hover {
-            color: #3498db;
-        }
-
-        h2::before {
-            content: '▶';
-            position: absolute;
-            left: 0;
-            transition: transform 0.3s;
-        }
-
-        h2.active::before {
-            transform: rotate(90deg);
-        }
-
-        h3 {
-            color: #16a085;
-            font-size: 1.3em;
-            margin-top: 25px;
-            margin-bottom: 15px;
-            font-style: italic;
-        }
-
-        p {
-            margin-bottom: 20px;
-            text-align: justify;
-        }
-
-        .section-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-out;
-        }
-
-        .section-content.active {
-            max-height: 4000px;
-            transition: max-height 0.8s ease-in;
-        }
-
-        .image-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-
-        .image-card {
-            background: #f8f9fa;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-
-        .image-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
-        }
-
-        div.image-placeholder {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.2em;
-            text-align: center;
-            padding: 20px;
-        }
-
-        .image-caption {
-            padding: 15px;
-            font-size: 0.9em;
-            color: #555;
-        }
-
-        /* Image mock styles */
-        .hero-image {
-            display: block;
-            margin: 20px auto 30px;
-            width: 100%;
-            max-width: 900px;
-            border-radius: 10px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-            object-fit: cover;
-        }
-
-        .card-image {
-            width: 100%;
-            height: 180px;
-            border-radius: 8px;
-            object-fit: cover;
-            margin-bottom: 12px;
-        }
-
-        .myth-image, .analysis-image {
-            width: 100%;
-            height: 220px;
-            border-radius: 8px;
-            object-fit: cover;
-            margin-bottom: 12px;
-        }
-
-        .author-avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-right: 10px;
-            vertical-align: middle;
+            font-size: 1.5em;
         }
 
         .interactive-comparison {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin: 30px 0;
+            grid-template-columns: 1fr;
         }
-
-        .comparison-card {
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-            padding: 25px;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
+        .card-image, .myth-image, .analysis-image {
+            height: auto;
         }
+    }
+</style>
+</head> 
+<body> 
+    <div class="container"> 
+        <h1>Uso de la cuchara para comer</h1> 
+        <img src="images/UsoCuchara.jpg" class="hero-image"> 
+        <figcaption><small><strong>Figure 1.</strong> <em>Baby Led Weaning.</em> Nestlé Family (s. f.).</small></figcaption>
 
-        .comparison-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-        }
-
-        .comparison-title {
-            font-weight: bold;
-            font-size: 1.2em;
-            margin-bottom: 10px;
-            color: #2c3e50;
-        }
-
-        .myth-box {
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-            padding: 30px;
-            border-radius: 10px;
-            margin: 30px 0;
-            border-left: 5px solid #e74c3c;
-        }
-
-        .quote-box {
-            background: #f8f9fa;
-            border-left: 4px solid #3498db;
-            padding: 20px;
-            margin: 20px 0;
-            font-style: italic;
-        }
-
-        .power-analysis {
-            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-            padding: 25px;
-            border-radius: 10px;
-            margin: 30px 0;
-        }
-
-        .observation-box {
-            background: #e8f5e9;
-            padding: 25px;
-            border-radius: 10px;
-            margin: 30px 0;
-            border-left: 5px solid #4caf50;
-        }
-
-        .references {
-            background: #ecf0f1;
-            padding: 25px;
-            border-radius: 8px;
-            margin-top: 40px;
-            border-left: 4px solid #3498db;
-        }
-
-        .references h2 {
-            margin-top: 0;
-            cursor: default;
-            padding-left: 0;
-        }
-
-        .references h2::before {
-            content: '';
-        }
-
-        .references p {
-            font-size: 0.95em;
-            margin-bottom: 10px;
-        }
-
-        .highlight {
-            background: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
-            padding: 2px 6px;
-            border-radius: 3px;
-            transition: all 0.3s;
-        }
-
-        .highlight:hover {
-            background: linear-gradient(120deg, #8fd3f4 0%, #84fab0 100%);
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 30px 20px;
-            }
-
-            h1 {
-                font-size: 2em;
-            }
-
-            h2 {
-                font-size: 1.5em;
-            }
-
-            .interactive-comparison {
-                grid-template-columns: 1fr;
-            }
-            .card-image, .myth-image, .analysis-image {
-                height: auto;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Uso de la cuchara para comer</h1>
-        <img src="images/UsoCuchara.jpg" class="hero-image">
-        <figcaption><small><strong>Figure 1.</strong> <em>Baby Led Weaning.</em> <strong>Note.</strong> Basado en *Descubre el método Baby Led Weaning*, Nestlé FamilyNes (s. f.). https://share.google/images/7mzooa56wHg8HtqiF</small></figcaption>
-
-
+        
         <h2 onclick="toggleSection(this)">1. Introducción</h2>
-        <div class="section-content active">
-            <p>La cuchara, más allá de su función práctica, constituye un <span class="highlight">signo cultural</span> que refleja las formas en que las sociedades conciben la alimentación, la convivencia y la relación entre cuerpo y cultura. Este ensayo analiza la cuchara desde tres enfoques: como objeto de diseño, como artefacto histórico y como signo simbólico, utilizando aportes teóricos de Munari, Norman, Urbina, Zarzalejos, Pineda, Barthes, Laborda Gil, Bennett y Elias.</p>
-            
-            <div class="observation-box">
-                <img src="images/autor.jpg" class="author-avatar">
-                <h3>Observación personal: El automatismo cotidiano</h3>
-                <p>En mi vida cotidiana, el uso de la cuchara es un gesto tan naturalizado que resulta casi imperceptible. Cada mañana, al tomar el café, al comer cereal, sopa o arroz, la mano se dirige automáticamente hacia el cajón de cubiertos. En contextos sociales, particularmente en comidas formales o reuniones familiares, utilizar la cuchara "correctamente" se convierte en una demostración silenciosa de educación y pertenencia. Esta práctica aparentemente neutral revela, sin embargo, profundas estructuras de poder y significación cultural que operan de manera casi invisible en nuestra vida diaria.</p>
-            </div>
-
-            <div class="image-gallery">
-                <div class="image-card">
-                    <img src="images/CucharaPH.jpg" class="image-placeholder card-image">
-                    <figcaption><small><strong>Figure 2.</strong> <em>Historia de la cuchara.</em> <strong>Note.</strong> Basado en *La desconocida historia de la cuchara*, Relatos e Historias en México (2021). https://relatosehistorias.mx/nuestras-historias/la-desconocida-historia-de-la-cuchara</small></figcaption>
-                    <div class="image-caption">Las primeras cucharas prehistóricas: conchas marinas y huesos utilizados hace más de 10,000 años</div>
-                </div>
-                <div class="image-card">
-                    <img src="images/CucharaPlata.jpg" class="image-placeholder card-image">
-                    <figcaption><small><strong>Figure 3.</strong> <em>Cuchara Richard Crossley, Siglo XVIII.</em> <strong>Note.</strong> Basado en *Cuchara decorada Richard Crossley Frutas plata de ley Siglo XVIII*, El Coleccionista Ecléctico (s. f.). https://www.elcoleccionistaeclectico.com/es/cuchara-decorada-plata-de-ley-siglo-xviii-richard-crossley-frutas-p21471</small></figcaption>
-                    <div class="image-caption">Cubiertos ornamentados como símbolos de estatus en la aristocracia europea</div>
-                </div>
-                <div class="image-card">
-                    <img src="images/Cuchara.jpg"" class="image-placeholder card-image">
-                    <figcaption><small><strong>Figure 4.</strong> <em>Cuchara Vianca de servicio.</em> <strong>Note.</strong> Basado en *Cuchara de servicio 42 cm Vianca acero inoxidable*, Bodega Aurrera (s. f.). https://www.bodegaaurrera.com.mx/ip/cuchara-de-servicio-42-cm-vianca-acero-inox-vianca-vianca-hogar/00750605660059</small></figcaption>
-                    <div class="image-caption">Diseño funcional contemporáneo: democratización del utensilio</div>
-                </div>
-            </div>
+    <div class="section-content active">
+        <p>La cuchara, más allá de su función práctica, constituye un <span class="highlight">signo cultural</span> que refleja las formas en que las sociedades conciben la alimentación, la convivencia y la relación entre cuerpo y cultura. Este ensayo analiza la cuchara desde tres enfoques: como objeto de diseño, como artefacto histórico y como signo simbólico, utilizando aportes teóricos de Munari, Norman, Urbina, Zarzalejos, Pineda, Barthes, Laborda Gil, Bennett y Elias.</p>
+        
+        <div class="observation-box">
+            <img src="images/autor.jpg" class="author-avatar">
+            <h3>Observación personal: El automatismo cotidiano</h3>
+            <p>En mi vida cotidiana, el uso de la cuchara es un gesto tan naturalizado que resulta casi imperceptible. Cada mañana, al tomar el café, al comer cereal, sopa o arroz, la mano se dirige automáticamente hacia el cajón de cubiertos. En contextos sociales, particularmente en comidas formales o reuniones familiares, utilizar la cuchara "correctamente" se convierte en una demostración silenciosa de educación y pertenencia. Esta práctica aparentemente neutral revela, sin embargo, profundas estructuras de poder y significación cultural que operan de manera casi invisible en nuestra vida diaria.</p>
         </div>
 
-        <h2 onclick="toggleSection(this)">2. Desarrollo</h2>
-        <div class="section-content">
-            <img src="images/CucharaConclu.jpg" class="analysis-image">
-            <figcaption><small><strong>Figure 5.</strong> <em>Cuchara cafetera Vianca.</em> <strong>Note.</strong> Basado en *Cuchara Cafetera Vianca 12 Pz.*, Vianca (s. f.). https://share.google/images/QfVLgRWDcBGutr3uy</small></figcaption>
-            <h3>a) La cuchara como objeto funcional y de diseño</h3>
-            <img src="images/CucharaFunc.jpg" class="card-image">
-            <figcaption><small><strong>Figure 6.</strong> <em>Imagen de TikTok.</em> <strong>Note.</strong> Basado en contenido de TikTok, usuario @user7381756558246 (s. f.). https://www.tiktok.com/@user7381756558246/photo/7567728780987387143</small></figcaption>
-            <p>Bruno Munari (2016) propone que los objetos nacen de una <span class="highlight">necesidad funcional</span> y de un proceso racional de diseño. La cuchara ha evolucionado desde las formas más simples hasta materiales modernos como el acero o el plástico. Donald Norman (2011) explica que el diseño cotidiano influye en la relación emocional entre el usuario y el objeto, haciendo que la experiencia de uso sea natural e intuitiva.</p>
-
-            <p>Las investigaciones arqueológicas documentan que la cuchara de mayor antigüedad registrada se encuentra en el sitio Uyun al-Hammam, del periodo epipaleolítico (10,000 a.C.), correspondiendo a una cuchara de hueso (Maher et al., 2011, citado en Complejo Arqueológico El Brujo). Durante el período neolítico (8,000 a.C.) se han encontrado cucharas tanto de hueso como de arcilla (Stefanović et al., 2019; Vitezović, 2011). El hombre primitivo empleó conchas de mar para llevarse alimentos líquidos a la boca, especialmente tras el descubrimiento de la sopa en el Neolítico.</p>
-
-            <h3>b) La cuchara como objeto cultural e histórico</h3>
-            <img src="images/CucharaHisto.jpg" class="card-image">
-            <figcaption><small><strong>Figure 7.</strong> <em>Banquete de Trimalchio (Roma antigua).</em> <strong>Note.</strong> Basado en *El banquete de Trimalchio*, Argiletum Tour Operator (2024). https://www.argiletumtour.com/es/el-banquete-de-trimalchio-antiguos-romanos-en-la-mesa/</small></figcaption>
-            <p>Urbina y Urquijo (2015) plantean que los objetos son testimonios de la vida cotidiana. La cuchara refleja transformaciones sociales, tecnológicas y alimentarias. Zarzalejos Prieto et al. (2014) destacan que en el mundo clásico los utensilios de mesa funcionaban también como <span class="highlight">símbolos de estatus</span>. En la Antigua Roma, las cucharas se fabricaban con mangos puntiagudos que funcionaban como primitivos tenedores, ideales para comer marisco.</p>
-
-            <p>Durante la Edad Media, la cuchara personal se convirtió en un objeto preciado, aunque comer con las manos seguía siendo común en todas las clases sociales. En el siglo XV se popularizaron las "cucharas del Apóstol", fabricadas en plata con la figura del santo patrón, que se convirtieron en el regalo ideal para recién nacidos. Entre los siglos XVI y XVIII abundaron las cucharas de plata en las casas de la burguesía y la nobleza europea.</p>
-
-            <div class="interactive-comparison">
-                <div class="comparison-card">
-                    <img src="images/MesaOcc.jpg" class="card-image">
-                    <figcaption><small><strong>Figure 8.</strong> <em>Banquetería contemporánea.</em> <strong>Note.</strong> Basado en *Banquetería*, Crista Hogar (s. f.). https://www.cristahogar.mx/our_services/service004/</small></figcaption>
-                    <div class="comparison-title">Occidente contemporáneo</div>
-                    <p>Uso obligatorio de cubiertos considerado higiénico y civilizado. Comer con las manos es visto como infantil en contextos formales.</p>
-                </div>
-                <div class="comparison-card">
-                    <img src="images/MesaIn.webp" class="card-image">
-                    <figcaption><small><strong>Figure 9.</strong> <em>Familia musulmana comiendo en el suelo.</em> <strong>Note.</strong> Basado en *Familia musulmana cenando en el suelo*, Churchill (s. f.). https://es.123rf.com/free-photo_102863662_familia-musulmana-cenando-en-el-suelo.html</small></figcaption>
-                    <div class="comparison-title">India y Medio Oriente</div>
-                    <p>Comer con las manos es la norma cultural. Se considera que permite una conexión más directa con el alimento y sus texturas.</p>
-                </div>
-                <div class="comparison-card">
-                    <img src="images/MesaAsia.jpg" class="card-image">
-                    <figcaption><small><strong>Figure 10.</strong> <em>Cultura japonesa: comer al 80%.</em> <strong>Note.</strong> Basado en *El secreto japonés de la eterna juventud: Conoce la sabiduría de comer al 80%*, Ruíz (2025). https://www.cocinavital.mx/blog-de-cocina/tips-de-salud/el-secreto-japones-de-la-longevidad-la-sabiduria-de-comer-al-80/2025/11/</small></figcaption>
-            
-                    <div class="comparison-title">Asia Oriental</div>
-                    <p>Predominio de palillos sobre cucharas para sólidos. En Tailandia, la cuchara es el cubierto más empleado, no los palillos.</p>
-                </div>
-                <div class="comparison-card">
-                    <img src="images/DivGlob.webp" class="card-image">
-                    <figcaption><small><strong>Figure 11.</strong> <em>Diversidad cultural alimentaria.</em> <strong>Note.</strong> Basado en imagen de Shutterstock (s. f.). https://www.shutterstock.com/es/search/cultural-diversity-food</small></figcaption>
-                    <div class="comparison-title">Comunidades diversas</div>
-                    <p>En Japón, sorber los fideos es señal de aprecio. En China, eructar puede indicar que disfrutaste la comida.</p>
-                </div>
+        <div class="image-gallery">
+            <div class="image-card">
+                <img src="images/CucharaPH.jpg" class="image-placeholder card-image">
+                <figcaption><small><strong>Figure 2.</strong> <em>Historia de la cuchara.</em> Relatos e Historias en México (2021).</small></figcaption>
+                <div class="image-caption">Las primeras cucharas prehistóricas: conchas marinas y huesos utilizados hace más de 10,000 años</div>
             </div>
-
-            <h3>c) La cuchara como signo y símbolo</h3>
-            <img src="images/CucharaSim.webp" class="card-image">
-            <figcaption><small><strong>Figure 12.</strong> <em>Cuchara como símbolo palestino.</em> <strong>Note.</strong> Basado en *Por qué la cuchara se transformó en un símbolo de liberación para los palestinos*, Minuto Neuquén (2021). https://www.minutoneuquen.com/mundo/2021/9/17/por-que-la-cuchara-se-transformo-en-un-nuevo-simbolo-de-liberacion-para-los-palestinos-296533.html</small></figcaption>
-            <p>Pineda y Pineda (2012) consideran que los objetos cotidianos son <span class="highlight">textos culturales</span> cargados de significado. Barthes (1999) explica que los objetos modernos se convierten en mitos y símbolos que naturalizan lo que es histórico y contingente. Bennett (2010) propone que los objetos poseen agencia material y participan activamente en la vida social, disciplinando cuerpos y reproduciendo jerarquías.</p>
-
-            <div class="quote-box">
-                <img src="images/Roland Barthes.webp" class="author-avatar">
-                <figcaption><small><strong>Figure 13.</strong> <em>Roland Barthes – Arte y lenguaje.</em> <strong>Note.</strong> Basado en *Todo lenguaje es siempre terrorista*, CalledelOrco (s. f.). https://calledelorco.com/2025/10/02/todo-lenguaje-es-siempre-terrorista-roland-barthes/</small></figcaption>
-                "El mito no se define por el objeto de su mensaje, sino por la forma en que lo profiere: el mito tiene límites formales, pero no sustanciales" - Roland Barthes, Mitologías (1999)
+            <div class="image-card">
+                <img src="images/CucharaPlata.jpg" class="image-placeholder card-image">
+                <figcaption><small><strong>Figure 3.</strong> <em>Cuchara Richard Crossley, Siglo XVIII.</em> El Coleccionista Ecléctico (s. f.).</small></figcaption>
+                <div class="image-caption">Cubiertos ornamentados como símbolos de estatus en la aristocracia europea</div>
             </div>
-        </div>
-
-        <h2 onclick="toggleSection(this)">3. El mito detrás del uso de la cuchara: Análisis barthesiano</h2>
-        <div class="section-content">
-            
-            <div class="myth-box">
-                <img src="images/CucharaMit.jpg" class="myth-image">
-                <figcaption><small><strong>Figure 14.</strong> <em>Origen de la cuchara.</em> <strong>Note.</strong> Basado en *Viaje al origen de las cucharas*, Macías (2023). https://www.elconfidencial.com/alma-corazon-vida/2023-03-02/revolucion-cuchara-pequena-postre-historia-moda_3580024/</small></figcaption>
-                <h3>El mito de la civilización a través de los modales en la mesa</h3>
-                <p>El uso de la cuchara no es simplemente una cuestión de higiene o practicidad; es la materialización de un <strong>mito fundacional de la modernidad occidental</strong>: la idea de que existe una escala evolutiva de la civilización que se manifiesta en los hábitos corporales y alimenticios. Como señala Elias (1989), los modales en la mesa funcionan como formas de comportamiento que una sociedad espera de sus miembros, sirviendo para observar los cambios de las costumbres, normas y tabúes sociales.</p>
+            <div class="image-card">
+                <img src="images/Cuchara.jpg"" class="image-placeholder card-image">
+                <figcaption><small><strong>Figure 4.</strong> <em>Cuchara Vianca de servicio.</em> Bodega Aurrera (s. f.).</small></figcaption>
+                <div class="image-caption">Diseño funcional contemporáneo: democratización del utensilio</div>
             </div>
-
-            <h3>El robo de sentido: De lo histórico a lo natural</h3>
-            <p>Siguiendo a Barthes (1999), el mito opera mediante un <span class="highlight">robo del sentido histórico</span> para transformar lo contingente en natural. El uso de la cuchara, lejos de ser una práctica universal, tiene un origen específico en la Europa aristocrática. Norbert Elias (1989) documenta en "El proceso de la civilización" cómo durante los siglos XVI y XVII ocurrió una modificación radical en el comportamiento social europeo.</p>
-            
-            <p>Elias (1989) analiza los modales medievales y demuestra que el comportamiento de los hombres medievales era muy diferente al actual: todos comían con las manos, desde el rey hasta el campesino, y apenas había jabón para lavarse. La transformación hacia el uso sistemático de cubiertos no respondió a razones higiénicas (el concepto de vida microscópica aún no existía), sino a <strong>distinciones de clase social</strong>. La publicación en 1530 del libro "De civilitate morum puerilium" de Erasmo de Rotterdam cambió radicalmente las reglas de etiqueta, aconsejando poner las manos sobre la mesa, no apoyar los codos y usar cubiertos.</p>
-
-            <p>Lo que en realidad es una <strong>convención cultural europea</strong> se ha naturalizado como "la forma humana de comer". Este proceso de naturalización es precisamente el mecanismo del mito: hacer pasar la historia por naturaleza.</p>
-
-            <div class="power-analysis">
-                <img src="images/sopa eti.jpg" class="analysis-image">
-                <figcaption><small><strong>Figure 15.</strong> <em>Buenas maneras al tomar sopa.</em> <strong>Note.</strong> Basado en *Buenas maneras en la mesa, a la hora de tomar la sopa* [Video], Hora 13 Noticias (2019). https://www.youtube.com/watch?v=vsO3PeVwAUc</small></figcaption>
-                <h3>Implicaciones de poder y colonialidad</h3>
-                <p><strong>¿Quién define qué es "civilizado"?</strong> El sociólogo Norbert Elias explica que históricamente los modales en la mesa han sido marcados por las clases poderosas. El servicio a la francesa lo impuso la Corte de Versalles y fue imitado por toda Europa. Las reglas de etiqueta se originaron en las cortes europeas, donde los modales se hicieron cada vez más sofisticados con la aparición de vajillas de lujo y cubiertos individuales.</p>
-                
-                <p>El proceso civilizatorio, como lo analiza Elias (1989), emanó principalmente de cortes aristocráticas para convertirse en un comportamiento socialmente extendido. Lo que antiguamente era un código exclusivo de las clases altas para diferenciarse de las bajas se transformó en un comportamiento legitimado para todos los estratos sociales.</p>
-
-                <p>Durante los procesos coloniales, la imposición de valores y prácticas culturales europeas sobre culturas subordinadas fue un mecanismo de dominación. Como señala la literatura sobre colonialismo cultural, la imposición de la cultura europea llevó a la pérdida de identidad cultural, la marginación de culturas autóctonas y la desvalorización de lenguas y costumbres locales. La imposición de "buenos modales" europeos fue parte de este proyecto civilizatorio colonial.</p>
-
-                <p>Hoy, este sistema de poder persiste: en contextos laborales formales, entrevistas de trabajo o cenas de negocios, el dominio de la etiqueta con cubiertos sigue siendo un marcador de clase y educación.</p>
-            </div>
-
-            <h3>Forma y concepto: El sistema semiológico segundo</h3>
-            <p>En el análisis barthesiano, el mito funciona como un <strong>sistema semiológico segundo</strong> que toma un signo completo y lo convierte en significante de un nuevo sistema:</p>
-
-            <ul style="margin-left: 40px; margin-bottom: 20px;">
-                <li><strong>Primer nivel (lengua):</strong> Cuchara = utensilio cóncavo con mango para llevar alimentos líquidos o semilíquidos a la boca.</li>
-                <li><strong>Segundo nivel (mito):</strong> Cuchara = civilización, higiene, educación, modernidad, superioridad cultural.</li>
-            </ul>
-
-            <p>El <strong>concepto mítico</strong> que se vehicula a través de la cuchara es el de la <span class="highlight">"civilización por disciplinamiento corporal"</span>. Elias (1989) explica que las coacciones pacíficas que ejercen las relaciones sociales van incrustándose en la personalidad, consolidando un aparato de costumbre peculiar, un "super-yo" específico que pretende regular los afectos de acuerdo con la estructura social.</p>
-
-            <p>La forma de este mito se manifiesta en:</p>
-
-            <ul style="margin-left: 40px; margin-bottom: 20px;">
-                <li>Manuales de etiqueta y urbanidad (desde Erasmo en 1530, pasando por el Manual de Carreño en 1853)</li>
-                <li>Programas educativos que enseñan "buenos modales"</li>
-                <li>Representaciones mediáticas que asocian la falta de modales con personajes cómicos o incivilizados</li>
-                <li>Diseño de espacios públicos (restaurantes formales vs. informales)</li>
-                <li>Códigos de comportamiento en contextos institucionales</li>
-            </ul>
-
-            <div class="quote-box">
-                <p><strong>El gran relato moderno subyacente:</strong> Este mito se conecta con el metarrelato de la modernidad sobre el progreso lineal. Elias (1989) aclara que el proceso civilizatorio no es ni racional ni irracional, sino que se mantiene en marcha por medio de la dinámica propia de una red de relaciones humanas. La cuchara se convierte así en un pequeño monumento al mito del progreso occidental.</p>
-            </div>
-
-            <h3>Necesidades culturales que satisface el mito</h3>
-            <p>¿Por qué persiste este mito? Porque satisface múltiples necesidades del orden social contemporáneo:</p>
-
-            <ul style="margin-left: 40px; margin-bottom: 20px;">
-                <li><strong>Legitimación del orden social:</strong> Justifica diferencias de clase presentándolas como diferencias de "educación".</li>
-                <li><strong>Identidad cultural:</strong> Proporciona marcadores de pertenencia a ciertos grupos sociales.</li>
-                <li><strong>Control corporal:</strong> Como explica Elias, disciplina los cuerpos mediante autocontroles que funcionan de modo casi automático.</li>
-                <li><strong>Distinción simbólica:</strong> Permite diferenciarse de "otros" considerados menos refinados.</li>
-                <li><strong>Reproducción cultural:</strong> Mantiene la hegemonía de patrones culturales específicos como "universales".</li>
-            </ul>
-
-            <h3>Manifestaciones contemporáneas del mito</h3>
-            <p>El mito se propaga y renueva constantemente a través de:</p>
-
-            <ul style="margin-left: 40px;">
-                <li>Programas de televisión sobre etiqueta y protocolo</li>
-                <li>Sistemas educativos que incluyen la enseñanza de modales</li>
-                <li>Industria de la consultoría en etiqueta corporativa</li>
-                <li>Discursos sobre "higiene" que naturalizan preferencias culturales</li>
-                <li>Redes sociales donde se juzga la "educación" por el comportamiento al comer</li>
-            </ul>
-        </div>
-
-        <h2 onclick="toggleSection(this)">4. Conclusión</h2>
-        <div class="section-content">
-            <p>El análisis de la cuchara demuestra que incluso los objetos más cotidianos encierran <span class="highlight">significados profundos</span> y operan como vehículos de mitos culturales. Desde lo funcional hasta lo simbólico, la cuchara contiene la historia y las prácticas culturales que dan forma a nuestra relación con el acto de comer.</p>
-
-            <p>Más allá de su utilidad práctica, <strong>la cuchara es un instrumento de distinción social</strong> que naturaliza jerarquías bajo la apariencia de neutralidad higiénica o funcional. Como documenta Elias (1989), el proceso civilizatorio se caracteriza por el aumento en los umbrales de vergüenza y repugnancia, desarrollando autocontroles internalizados que funcionan de manera casi automática.</p>
-
-            <p>Desenmascarar este mito no implica rechazar el uso de cubiertos, sino <span class="highlight">reconocer su carácter construido</span> y abrirse a la legitimidad de otras formas culturales de relacionarse con el alimento. Como propone Bennett (2010), los objetos tienen agencia: la cuchara actúa sobre nosotros tanto como nosotros sobre ella, disciplinando nuestros cuerpos, marcando nuestras identidades y perpetuando sistemas de significación que trascienden su función inmediata.</p>
-
-            <p>Comprender esto es un primer paso hacia una <strong>reflexión crítica sobre nuestras prácticas cotidianas</strong> más aparentemente inocentes, reconociendo que lo que consideramos "natural" es en realidad el resultado de largos procesos históricos de construcción social.</p>
-        </div>
-
-        <div class="references">
-            <h2>Referencias</h2>
-            <p>Argiletum Tour Operator. (2024, 2 agosto). <em>El banquete de Trimalchio - antiguos romanos en la mesa</em>. Viajes Por Italia. https://www.argiletumtour.com/es/el-banquete-de-trimalchio-antiguos-romanos-en-la-mesa/</p>
-            <p>Barthes, R. (1999). <em>Mitologías</em>. Siglo XXI Editores.</p>
-            <p>Bennett, J. (2010). <em>Vibrant Matter: A Political Ecology of Things</em>. Duke University Press.</p>
-            <p>Bodega Aurrera. (s.f.). <em>Cuchara de servicio 42 cm Vianca acero inoxidable</em>. https://www.bodegaaurrera.com.mx/ip/cuchara-de-servicio-42-cm-vianca-acero-inox-vianca-vianca-hogar/00750605660059</p>
-            <p>Churchill, R. (s.f.). <em>Familia musulmana cenando en el suelo</em>. 123RF. https://es.123rf.com/free-photo_102863662_familia-musulmana-cenando-en-el-suelo.html</p>
-            <p>Complejo Arqueológico El Brujo. (s.f.). <em>Las cucharas en el antiguo Perú</em>. https://www.elbrujo.pe/blog/las-cucharas-en-el-antiguo-peru</p>
-            <p>Crista Hogar. (s.f.). <em>Banquetería</em>. https://www.cristahogar.mx/our_services/service004/</p>
-            <p>El Coleccionista Ecléctico. (s.f.). <em>Cuchara decorada Richard Crossley Frutas plata de ley Siglo XVIII</em>. https://www.elcoleccionistaeclectico.com/es/cuchara-decorada-plata-de-ley-siglo-xviii-richard-crossley-frutas-p21471</p>
-            <p>Elias, N. (1989). <em>El proceso de la civilización: Investigaciones sociogenéticas y psicogenéticas</em>. Fondo de Cultura Económica.</p>
-            <p>Hora 13 Noticias. (2019, 5 noviembre). <em>Buenas maneras en la mesa, a la hora de tomar la sopa</em> [Vídeo]. YouTube. https://www.youtube.com/watch?v=vsO3PeVwAUc</p>
-            <p>Laborda Gil, X. (2023). <em>Semiótica cultural de las maneras en la mesa</em>.</p>
-            <p>Macías, C. (2023, 2 marzo). <em>Viaje al origen de las cucharas: su historia es mucho menos aburrida de lo que piensas</em>. El Confidencial. https://www.elconfidencial.com/alma-corazon-vida/2023-03-02/revolucion-cuchara-pequena-postre-historia-moda_3580024/</p>
-            <p>Maher, L. A., et al. (2011). <em>A Unique Human-Fox Burial from a Pre-Natufian Cemetery in the Levant (Jordan)</em>. [Citado en Complejo Arqueológico El Brujo].</p>
-            <p>Munari, B. (2016). <em>¿Cómo nacen los objetos? Apuntes para una metodología proyectual</em>. Editorial Gustavo Gili.</p>
-            <p>Nestlé Family. (s.f.). <em>Descubre el método Baby Led Weaning</em>. https://share.google/images/7mzooa56wHg8HtqiF</p>
-            <p>Norman, D. A. (2011). <em>La psicología de los objetos cotidianos</em>. Nerea.</p>
-            <p>Pascual Benito, J. L. (1999). La variedad morfotécnica y funcional de las cucharas óseas del neolítico de la Península Ibérica. <em>SAGVNTVM-PLAV</em>, Extra-2, 143-150.</p>
-            <p>Pineda Cruz, É., & Pineda Repizzo, A. F. (2012). <em>El objeto de uso como texto: Una aproximación semiótica a los objetos cotidianos</em>.</p>
-            <p>Redirect notice. (s.f.). <em>Diversidad cultural comida</em>. https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.shutterstock.com%2Fes%2Fsearch%2Fcultural-diversity-food</p>
-            <p>Relatos E Historias En México. (2021, 9 julio). <em>La desconocida historia de la cuchara</em>. https://relatosehistorias.mx/nuestras-historias/la-desconocida-historia-de-la-cuchara</p>
-            <p>Ruíz, X. (2025, 5 noviembre). <em>El secreto japonés de la eterna juventud: Conoce la sabiduría de comer al 80%</em>. Cocina Vital. https://www.cocinavital.mx/blog-de-cocina/tips-de-salud/el-secreto-japones-de-la-longevidad-la-sabiduria-de-comer-al-80/2025/11/</p>
-            <p>Stefanović, S., et al. (2019). Bone spoons for prehistoric babies: Detection of human teeth marks on the Neolithic artefacts from the site Grad-Starčevo (Serbia). <em>PLOS ONE</em>.</p>
-            <p>Urbina, D., & Urquijo, C. (2015). <em>Objetos y personas: Apuntes sobre la vida cotidiana</em>.</p>
-            <p>Zarzalejos Prieto, M., Guiral Pelegrín, C., & San Nicolás Pedraz, M. P. (2014). <em>Historia de la cultura material del mundo clásico</em>. Editorial Universitaria Ramón Areces.</p>
         </div>
     </div>
 
-    <script>
-        function toggleSection(header) {
-            const content = header.nextElementSibling;
-            header.classList.toggle('active');
-            content.classList.toggle('active');
-        }
+    <h2 onclick="toggleSection(this)">2. Desarrollo</h2>
+    <div class="section-content">
+        <img src="images/CucharaConclu.jpg" class="analysis-image">
+        <figcaption><small><strong>Figure 5.</strong> <em>Cuchara cafetera Vianca.</em> Vianca (s. f.).</small></figcaption>
+        <h3>a) La cuchara como objeto funcional y de diseño</h3>
+        <img src="images/CucharaFunc.jpg" class="card-image">
+        <figcaption><small><strong>Figure 6.</strong> <em>Imagen de TikTok.</em> @user7381756558246 (s. f.).</small></figcaption>
+        <p>Bruno Munari (2016) propone que los objetos nacen de una <span class="highlight">necesidad funcional</span> y de un proceso racional de diseño. La cuchara ha evolucionado desde las formas más simples hasta materiales modernos como el acero o el plástico. Donald Norman (2011) explica que el diseño cotidiano influye en la relación emocional entre el usuario y el objeto, haciendo que la experiencia de uso sea natural e intuitiva.</p>
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const firstHeader = document.querySelector('h2');
-            firstHeader.classList.add('active');
-        });
-    </script>
-</body>
-</html>
+        <p>Las investigaciones arqueológicas documentan que la cuchara de mayor antigüedad registrada se encuentra en el sitio Uyun al-Hammam, del periodo epipaleolítico (10,000 a.C.), correspondiendo a una cuchara de hueso (Maher et al., 2011, citado en Complejo Arqueológico El Brujo). Durante el período neolítico (8,000 a.C.) se han encontrado cucharas tanto de hueso como de arcilla (Stefanović et al., 2019; Vitezović, 2011). El hombre primitivo empleó conchas de mar para llevarse alimentos líquidos a la boca, especialmente tras el descubrimiento de la sopa en el Neolítico.</p>
+
+        <h3>b) La cuchara como objeto cultural e histórico</h3>
+        <img src="images/CucharaHisto.jpg" class="card-image">
+        <figcaption><small><strong>Figure 7.</strong> <em>Banquete de Trimalchio (Roma antigua).</em> Argiletum Tour Operator (2024).</small></figcaption>
+        <p>Urbina y Urquijo (2015) plantean que los objetos son testimonios de la vida cotidiana. La cuchara refleja transformaciones sociales, tecnológicas y alimentarias. Zarzalejos Prieto et al. (2014) destacan que en el mundo clásico los utensilios de mesa funcionaban también como <span class="highlight">símbolos de estatus</span>. En la Antigua Roma, las cucharas se fabricaban con mangos puntiagudos que funcionaban como primitivos tenedores, ideales para comer marisco.</p>
+
+        <p>Durante la Edad Media, la cuchara personal se convirtió en un objeto preciado, aunque comer con las manos seguía siendo común en todas las clases sociales. En el siglo XV se popularizaron las "cucharas del Apóstol", fabricadas en plata con la figura del santo patrón, que se convirtieron en el regalo ideal para recién nacidos. Entre los siglos XVI y XVIII abundaron las cucharas de plata en las casas de la burguesía y la nobleza europea.</p>
+
+        <div class="interactive-comparison">
+            <div class="comparison-card">
+                <img src="images/MesaOcc.jpg" class="card-image">
+                <figcaption><small><strong>Figure 8.</strong> <em>Banquetería contemporánea.</em> Crista Hogar (s. f.).</small></figcaption>
+                <div class="comparison-title">Occidente contemporáneo</div>
+                <p>Uso obligatorio de cubiertos considerado higiénico y civilizado. Comer con las manos es visto como infantil en contextos formales.</p>
+            </div>
+            <div class="comparison-card">
+                <img src="images/MesaIn.webp" class="card-image">
+                <figcaption><small><strong>Figure 9.</strong> <em>Familia musulmana comiendo en el suelo.</em> Churchill (s. f.).</small></figcaption>
+                <div class="comparison-title">India y Medio Oriente</div>
+                <p>Comer con las manos es la norma cultural. Se considera que permite una conexión más directa con el alimento y sus texturas.</p>
+            </div>
+            <div class="comparison-card">
+                <img src="images/MesaAsia.jpg" class="card-image">
+                <figcaption><small><strong>Figure 10.</strong> <em>Cultura japonesa: comer al 80%.</em> Ruíz (2025).</small></figcaption>
+        
+                <div class="comparison-title">Asia Oriental</div>
+                <p>Predominio de palillos sobre cucharas para sólidos. En Tailandia, la cuchara es el cubierto más empleado, no los palillos.</p>
+            </div>
+            <div class="comparison-card">
+                <img src="images/DivGlob.webp" class="card-image">
+                <figcaption><small><strong>Figure 11.</strong> <em>Diversidad cultural alimentaria.</em> Shutterstock (s. f.).</small></figcaption>
+                <div class="comparison-title">Comunidades diversas</div>
+                <p>En Japón, sorber los fideos es señal de aprecio. En China, eructar puede indicar que disfrutaste la comida.</p>
+            </div>
+        </div>
+
+        <h3>c) La cuchara como signo y símbolo</h3>
+        <img src="images/CucharaSim.webp" class="card-image">
+        <figcaption><small><strong>Figure 12.</strong> <em>Cuchara como símbolo palestino.</em> Minuto Neuquén (2021).</small></figcaption>
+        <p>Pineda y Pineda (2012) consideran que los objetos cotidianos son <span class="highlight">textos culturales</span> cargados de significado. Barthes (1999) explica que los objetos modernos se convierten en mitos y símbolos que naturalizan lo que es histórico y contingente. Bennett (2010) propone que los objetos poseen agencia material y participan activamente en la vida social, disciplinando cuerpos y reproduciendo jerarquías.</p>
+
+        <div class="quote-box">
+            <img src="images/Roland Barthes.webp" class="author-avatar">
+            <figcaption><small><strong>Figure 13.</strong> <em>Roland Barthes – Arte y lenguaje.</em> CalledelOrco (s. f.).</small></figcaption>
+            "El mito no se define por el objeto de su mensaje, sino por la forma en que lo profiere: el mito tiene límites formales, pero no sustanciales" - Roland Barthes, Mitologías (1999)
+        </div>
+    </div>
+
+    <h2 onclick="toggleSection(this)">3. El mito detrás del uso de la cuchara: Análisis barthesiano</h2>
+    <div class="section-content">
+        
+        <div class="myth-box">
+            <img src="images/CucharaMit.jpg" class="myth-image">
+            <figcaption><small><strong>Figure 14.</strong> <em>Origen de la cuchara.</em> Macías (2023).</small></figcaption>
+            <h3>El mito de la civilización a través de los modales en la mesa</h3>
+            <p>El uso de la cuchara no es simplemente una cuestión de higiene o practicidad; es la materialización de un <strong>mito fundacional de la modernidad occidental</strong>: la idea de que existe una escala evolutiva de la civilización que se manifiesta en los hábitos corporales y alimenticios. Como señala Elias (1989), los modales en la mesa funcionan como formas de comportamiento que una sociedad espera de sus miembros, sirviendo para observar los cambios de las costumbres, normas y tabúes sociales.</p>
+        </div>
+
+        <h3>El robo de sentido: De lo histórico a lo natural</h3>
+        <p>Siguiendo a Barthes (1999), el mito opera mediante un <span class="highlight">robo del sentido histórico</span> para transformar lo contingente en natural. El uso de la cuchara, lejos de ser una práctica universal, tiene un origen específico en la Europa aristocrática. Norbert Elias (1989) documenta en "El proceso de la civilización" cómo durante los siglos XVI y XVII ocurrió una modificación radical en el comportamiento social europeo.</p>
+        
+        <p>Elias (1989) analiza los modales medievales y demuestra que el comportamiento de los hombres medievales era muy diferente al actual: todos comían con las manos, desde el rey hasta el campesino, y apenas había jabón para lavarse. La transformación hacia el uso sistemático de cubiertos no respondió a razones higiénicas (el concepto de vida microscópica aún no existía), sino a <strong>distinciones de clase social</strong>. La publicación en 1530 del libro "De civilitate morum puerilium" de Erasmo de Rotterdam cambió radicalmente las reglas de etiqueta, aconsejando poner las manos sobre la mesa, no apoyar los codos y usar cubiertos.</p>
+
+        <p>Lo que en realidad es una <strong>convención cultural europea</strong> se ha naturalizado como "la forma humana de comer". Este proceso de naturalización es precisamente el mecanismo del mito: hacer pasar la historia por naturaleza.</p>
+
+        <div class="power-analysis">
+            <img src="images/sopa eti.jpg" class="analysis-image">
+            <figcaption><small><strong>Figure 15.</strong> <em>Buenas maneras al tomar sopa.</em> Hora 13 Noticias (2019).</small></figcaption>
+            <h3>Implicaciones de poder y colonialidad</h3>
+            <p><strong>¿Quién define qué es "civilizado"?</strong> El sociólogo Norbert Elias explica que históricamente los modales en la mesa han sido marcados por las clases poderosas. El servicio a la francesa lo impuso la Corte de Versalles y fue imitado por toda Europa. Las reglas de etiqueta se originaron en las cortes europeas, donde los modales se hicieron cada vez más sofisticados con la aparición de vajillas de lujo y cubiertos individuales.</p>
+            
+            <p>El proceso civilizatorio, como lo analiza Elias (1989), emanó principalmente de cortes aristocráticas para convertirse en un comportamiento socialmente extendido. Lo que antiguamente era un código exclusivo de las clases altas para diferenciarse de las bajas se transformó en un comportamiento legitimado para todos los estratos sociales.</p>
+
+            <p>Durante los procesos coloniales, la imposición de valores y prácticas culturales europeas sobre culturas subordinadas fue un mecanismo de dominación. Como señala la literatura sobre colonialismo cultural, la imposición de la cultura europea llevó a la pérdida de identidad cultural, la marginación de culturas autóctonas y la desvalorización de lenguas y costumbres locales. La imposición de "buenos modales" europeos fue parte de este proyecto civilizatorio colonial.</p>
+
+            <p>Hoy, este sistema de poder persiste: en contextos laborales formales, entrevistas de trabajo o cenas de negocios, el dominio de la etiqueta con cubiertos sigue siendo un marcador de clase y educación.</p>
+        </div>
+
+        <h3>Forma y concepto: El sistema semiológico segundo</h3>
+        <p>En el análisis barthesiano, el mito funciona como un <strong>sistema semiológico segundo</strong> que toma un signo completo y lo convierte en significante de un nuevo sistema:</p>
+
+        <ul style="margin-left: 40px; margin-bottom: 20px;">
+            <li><strong>Primer nivel (lengua):</strong> Cuchara = utensilio cóncavo con mango para llevar alimentos líquidos o semilíquidos a la boca.</li>
+            <li><strong>Segundo nivel (mito):</strong> Cuchara = civilización, higiene, educación, modernidad, superioridad cultural.</li>
+        </ul>
+
+        <p>El <strong>concepto mítico</strong> que se vehicula a través de la cuchara es el de la <span class="highlight">"civilización por disciplinamiento corporal"</span>. Elias (1989) explica que las coacciones pacíficas que ejercen las relaciones sociales van incrustándose en la personalidad, consolidando un aparato de costumbre peculiar, un "super-yo" específico que pretende regular los afectos de acuerdo con la estructura social.</p>
+
+        <p>La forma de este mito se manifiesta en:</p>
+
+        <ul style="margin-left: 40px; margin-bottom: 20px;">
+            <li>Manuales de etiqueta y urbanidad (desde Erasmo en 1530, pasando por el Manual de Carreño en 1853)</li>
+            <li>Programas educativos que enseñan "buenos modales"</li>
+            <li>Representaciones mediáticas que asocian la falta de modales con personajes cómicos o incivilizados</li>
+            <li>Diseño de espacios públicos (restaurantes formales vs. informales)</li>
+            <li>Códigos de comportamiento en contextos institucionales</li>
+        </ul>
+
+        <div class="quote-box">
+            <p><strong>El gran relato moderno subyacente:</strong> Este mito se conecta con el metarrelato de la modernidad sobre el progreso lineal. Elias (1989) aclara que el proceso civilizatorio no es ni racional ni irracional, sino que se mantiene en marcha por medio de la dinámica propia de una red de relaciones humanas. La cuchara se convierte así en un pequeño monumento al mito del progreso occidental.</p>
+        </div>
+
+        <h3>Necesidades culturales que satisface el mito</h3>
+        <p>¿Por qué persiste este mito? Porque satisface múltiples necesidades del orden social contemporáneo:</p>
+
+        <ul style="margin-left: 40px; margin-bottom: 20px;">
+            <li><strong>Legitimación del orden social:</strong> Justifica diferencias de clase presentándolas como diferencias de "educación".</li>
+            <li><strong>Identidad cultural:</strong> Proporciona marcadores de pertenencia a ciertos grupos sociales.</li>
+            <li><strong>Control corporal:</strong> Como explica Elias, disciplina los cuerpos mediante autocontroles que funcionan de modo casi automático.</li>
+            <li><strong>Distinción simbólica:</strong> Permite diferenciarse de "otros" considerados menos refinados.</li>
+            <li><strong>Reproducción cultural:</strong> Mantiene la hegemonía de patrones culturales específicos como "universales".</li>
+        </ul>
+
+        <h3>Manifestaciones contemporáneas del mito</h3>
+        <p>El mito se propaga y renueva constantemente a través de:</p>
+
+        <ul style="margin-left: 40px;">
+            <li>Programas de televisión sobre etiqueta y protocolo</li>
+            <li>Sistemas educativos que incluyen la enseñanza de modales</li>
+            <li>Industria de la consultoría en etiqueta corporativa</li>
+            <li>Discursos sobre "higiene" que naturalizan preferencias culturales</li>
+            <li>Redes sociales donde se juzga la "educación" por el comportamiento al comer</li>
+        </ul>
+    </div>
+
+    <h2 onclick="toggleSection(this)">4. Conclusión</h2>
+    <div class="section-content">
+        <p>El análisis de la cuchara demuestra que incluso los objetos más cotidianos encierran <span class="highlight">significados profundos</span> y operan como vehículos de mitos culturales. Desde lo funcional hasta lo simbólico, la cuchara contiene la historia y las prácticas culturales que dan forma a nuestra relación con el acto de comer.</p>
+
+        <p>Más allá de su utilidad práctica, <strong>la cuchara es un instrumento de distinción social</strong> que naturaliza jerarquías bajo la apariencia de neutralidad higiénica o funcional. Como documenta Elias (1989), el proceso civilizatorio se caracteriza por el aumento en los umbrales de vergüenza y repugnancia, desarrollando autocontroles internalizados que funcionan de manera casi automática.</p>
+
+        <p>Desenmascarar este mito no implica rechazar el uso de cubiertos, sino <span class="highlight">reconocer su carácter construido</span> y abrirse a la legitimidad de otras formas culturales de relacionarse con el alimento. Como propone Bennett (2010), los objetos tienen agencia: la cuchara actúa sobre nosotros tanto como nosotros sobre ella, disciplinando nuestros cuerpos, marcando nuestras identidades y perpetuando sistemas de significación que trascienden su función inmediata.</p>
+
+        <p>Comprender esto es un primer paso hacia una <strong>reflexión crítica sobre nuestras prácticas cotidianas</strong> más aparentemente inocentes, reconociendo que lo que consideramos "natural" es en realidad el resultado de largos procesos históricos de construcción social.</p>
+    </div>
+
+    <div class="references">
+        <h2>Referencias</h2>
+        <p>Argiletum Tour Operator. (2024, 2 agosto). <em>El banquete de Trimalchio - antiguos romanos en la mesa</em>. Viajes Por Italia. https://www.argiletumtour.com/es/el-banquete-de-trimalchio-antiguos-romanos-en-la-mesa/</p>
+        <p>Barthes, R. (1999). <em>Mitologías</em>. Siglo XXI Editores.</p>
+        <p>Bennett, J. (2010). <em>Vibrant Matter: A Political Ecology of Things</em>. Duke University Press.</p>
+        <p>Bodega Aurrera. (s.f.). <em>Cuchara de servicio 42 cm Vianca acero inoxidable</em>. https://www.bodegaaurrera.com.mx/ip/cuchara-de-servicio-42-cm-vianca-acero-inox-vianca-vianca-hogar/00750605660059</p>
+        <p>Churchill, R. (s.f.). <em>Familia musulmana cenando en el suelo</em>. 123RF. https://es.123rf.com/free-photo_102863662_familia-musulmana-cenando-en-el-suelo.html</p>
+        <p>Complejo Arqueológico El Brujo. (s.f.). <em>Las cucharas en el antiguo Perú</em>. https://www.elbrujo.pe/blog/las-cucharas-en-el-antiguo-peru</p>
+        <p>Crista Hogar. (s.f.). <em>Banquetería</em>. https://www.cristahogar.mx/our_services/service004/</p>
+        <p>El Coleccionista Ecléctico. (s.f.). <em>Cuchara decorada Richard Crossley Frutas plata de ley Siglo XVIII</em>. https://www.elcoleccionistaeclectico.com/es/cuchara-decorada-plata-de-ley-siglo-xviii-richard-crossley-frutas-p21471</p>
+        <p>Elias, N. (1989). <em>El proceso de la civilización: Investigaciones sociogenéticas y psicogenéticas</em>. Fondo de Cultura Económica.</p>
+        <p>Hora 13 Noticias. (2019, 5 noviembre). <em>Buenas maneras en la mesa, a la hora de tomar la sopa</em> [Vídeo]. YouTube. https://www.youtube.com/watch?v=vsO3PeVwAUc</p>
+        <p>Laborda Gil, X. (2023). <em>Semiótica cultural de las maneras en la mesa</em>.</p>
+        <p>Macías, C. (2023, 2 marzo). <em>Viaje al origen de las cucharas: su historia es mucho menos aburrida de lo que piensas</em>. El Confidencial. https://www.elconfidencial.com/alma-corazon-vida/2023-03-02/revolucion-cuchara-pequena-postre-historia-moda_3580024/</p>
+        <p>Maher, L. A., et al. (2011). <em>A Unique Human-Fox Burial from a Pre-Natufian Cemetery in the Levant (Jordan)</em>. [Citado en Complejo Arqueológico El Brujo].</p>
+        <p>Munari, B. (2016). <em>¿Cómo nacen los objetos? Apuntes para una metodología proyectual</em>. Editorial Gustavo Gili.</p>
+        <p>Nestlé Family. (s.f.). <em>Descubre el método Baby Led Weaning</em>. https://share.google/images/7mzooa56wHg8HtqiF</p>
+        <p>Norman, D. A. (2011). <em>La psicología de los objetos cotidianos</em>. Nerea.</p>
+        <p>Pascual Benito, J. L. (1999). La variedad morfotécnica y funcional de las cucharas óseas del neolítico de la Península Ibérica. <em>SAGVNTVM-PLAV</em>, Extra-2, 143-150.</p>
+        <p>Pineda Cruz, É., & Pineda Repizzo, A. F. (2012). <em>El objeto de uso como texto: Una aproximación semiótica a los objetos cotidianos</em>.</p>
+        <p>Redirect notice. (s.f.). <em>Diversidad cultural comida</em>. https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.shutterstock.com%2Fes%2Fsearch%2Fcultural-diversity-food</p>
+        <p>Relatos E Historias En México. (2021, 9 julio). <em>La desconocida historia de la cuchara</em>. https://relatosehistorias.mx/nuestras-historias/la-desconocida-historia-de-la-cuchara</p>
+        <p>Ruíz, X. (2025, 5 noviembre). <em>El secreto japonés de la eterna juventud: Conoce la sabiduría de comer al 80%</em>. Cocina Vital. https://www.cocinavital.mx/blog-de-cocina/tips-de-salud/el-secreto-japones-de-la-longevidad-la-sabiduria-de-comer-al-80/2025/11/</p>
+        <p>Stefanović, S., et al. (2019). Bone spoons for prehistoric babies: Detection of human teeth marks on the Neolithic artefacts from the site Grad-Starčevo (Serbia). <em>PLOS ONE</em>.</p>
+        <p>Urbina, D., & Urquijo, C. (2015). <em>Objetos y personas: Apuntes sobre la vida cotidiana</em>.</p>
+        <p>Zarzalejos Prieto, M., Guiral Pelegrín, C., & San Nicolás Pedraz, M. P. (2014). <em>Historia de la cultura material del mundo clásico</em>. Editorial Universitaria Ramón Areces.</p>
+    </div>
+</div>
+
+<script>
+    function toggleSection(header) {
+        const content = header.nextElementSibling;
+        header.classList.toggle('active');
+        content.classList.toggle('active');
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const firstHeader = document.querySelector('h2');
+        firstHeader.classList.add('active');
+    });
+</script>
